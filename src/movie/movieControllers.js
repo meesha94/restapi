@@ -22,7 +22,7 @@ exports.listMovies = async (req, res) => {
 
 exports.updateMovies = async (req, res) => {
     try {
-        const updatedMovies = await Movie.updateOne({title: req.body.title},{$set: {title: req.body.newTitle}});
+        const updatedMovies = await Movie.updateOne({name: req.body.name},{$set: {name: req.body.newname}});
         res.status(200).send({ updatedMovies });
     } catch (error) {
         console.log(error);
@@ -33,7 +33,7 @@ exports.updateMovies = async (req, res) => {
 
 exports.deleteMovies = async (req, res) => {
     try {
-    const deletedMovie = await Movie.deleteOne({title: req.body.title});
+    const deletedMovie = await Movie.deleteOne(req.body);
     res.status(200).send({ deletedMovie });
 	} catch (error) {
 		console.log(error);
