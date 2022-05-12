@@ -14,16 +14,16 @@ exports.addUser = async (req, res) => {
 };
 
 
-exports.login = async (req, res) => {
-    try {
-      const returnedUser = await User.find({user: req.body.username});
-      
-      res.status(200).send({ message: "success" });
-    } catch (error) {
-      console.log(error);
-      res.status(404).send({ error: "Cannot find user" });
-    }
-};
+//exports.login = async (req, res) => {
+  //  try {
+    //  const returnedUser = await User.find({user: req.body.username});
+      //
+//      res.status(200).send({ message: "success" });
+//    } catch (error) {
+//      console.log(error);
+//      res.status(404).send({ error: "Cannot find user" });
+//    }
+//};
 
 
 

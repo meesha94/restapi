@@ -16,8 +16,9 @@ exports.decryptPass = async (req, res, next) => {
     try {
       const user = await User.findOne({ username: req.body.username });
       if (await bcrypt.compare(req.body.pass, user.pass)) {
-        res.status(200).send({message: "Success"});
         next();
+        res.status(200).send({message: "Success"});
+        
       } else {
         console.log("incorrect");
       }
