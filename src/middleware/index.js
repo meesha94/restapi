@@ -4,7 +4,7 @@ const  User = require("../user/userModel");
 
 exports.hashPass = async (req, res, next) => {
     try {
-        req.body.pass = await bcrypt.hash(req.body.pass, 8);
+        req.body.password = await bcrypt.hash(req.body.password);
         next();
     } catch (error) {
         console.log(error);
@@ -12,15 +12,18 @@ exports.hashPass = async (req, res, next) => {
     }
 };
 
-exports.decryptPass = async (req, res, next) => {
+exports.unHash = async (req, res, next) => {
     try {
-      const user = await User.findOne({ username: req.body.username });
-      if (await bcrypt.compare(req.body.pass, user.pass)) {
+      req.user = await User.findOne({ username: req.body.username });
+      if ( 
+        req.user &&
+      (await bcrypt.compare(req.body.password, req.user.password))) 
+      {
         next();
         res.status(200).send({message: "Success"});
         
       } else {
-        console.log("incorrect");
+        throw new Error("incorrect");
       }
     } catch (error) {
       console.log(error);
